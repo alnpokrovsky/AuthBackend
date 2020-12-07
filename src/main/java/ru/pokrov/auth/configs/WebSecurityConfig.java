@@ -24,21 +24,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers( "/api/signup").permitAll()
                 .antMatchers(HttpMethod.GET, "/app/**").permitAll()
+                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .anyRequest().authenticated()
-            .and()
-                .formLogin()
-                .loginPage("/app/login")
-                .loginProcessingUrl("/api/login")
-                .successForwardUrl("/app/user")
-                .permitAll()
-            .and()
-                .logout()
-                .logoutUrl("/api/logout")
-                .logoutSuccessUrl("/app/login")
-                .permitAll()
             .and()
                 .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
     }
+
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

@@ -3,6 +3,7 @@ package ru.pokrov.auth.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import ru.pokrov.auth.entities.User;
 import ru.pokrov.auth.services.UserService;
@@ -26,8 +27,8 @@ public class UserController {
     }
 
     @GetMapping("/user")
-    public String getUser() {
-        return "hello";
+    public User getUser(@AuthenticationPrincipal User user) {
+        return user;
     }
 
 }
