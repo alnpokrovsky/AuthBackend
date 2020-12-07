@@ -1,12 +1,15 @@
 package ru.pokrov.auth.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.pokrov.auth.daos.UserDao;
 import ru.pokrov.auth.entities.User;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
     @Autowired
     private UserDao userDao;
 
@@ -16,11 +19,16 @@ public class UserService {
             return null;
         } else {
             user.setActive(true);
-            return user;
+            return userDao.save(user);
         }
     }
 
     public User login(String email, String password) {
         return new User(email, password, "a", "p");
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userDao.findByUsername(username);
     }
 }

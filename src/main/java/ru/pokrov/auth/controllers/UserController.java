@@ -1,22 +1,12 @@
 package ru.pokrov.auth.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.pokrov.auth.entities.User;
 import ru.pokrov.auth.services.UserService;
 
-class LoginInf {
-    private String email;
-    private String password;
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-}
 
 @RestController
 @RequestMapping({"/api"})
@@ -25,9 +15,14 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/login")
-    public User login(@RequestBody LoginInf l) {
-        return userService.login(l.getEmail(), l.getPassword());
+    @PostMapping("/signup")
+    public ResponseEntity<User> signup(@RequestBody User user) {
+        user = userService.signup(user);
+        if (user != null) {
+            return ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.status(HttpStatus.GONE).body(null);
+        }
     }
 
     @GetMapping("/user")

@@ -9,38 +9,41 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-
-import javax.sql.DataSource;
+import ru.pokrov.auth.services.UserService;
 
 @Configuration
 @EnableWebMvc
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    DataSource dataSource;
+    UserService userService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic()
-                .and()
+            .and()
                 .authorizeRequests()
-                .antMatchers( "/api/login", "/api/signup").permitAll()
+                .antMatchers( "/api/signup").permitAll()
                 .antMatchers(HttpMethod.GET, "/app/**").permitAll()
                 .anyRequest().authenticated()
-                .and()
+            .and()
                 .formLogin()
-                .loginPage("/app/")
+                .loginPage("/app/login")
+                .loginProcessingUrl("/api/login")
+                .successForwardUrl("/app/user")
                 .permitAll()
-                .and()
+            .and()
+                .logout()
+                .logoutUrl("/api/logout")
+                .logoutSuccessUrl("/app/login")
+                .permitAll()
+            .and()
                 .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication()
-                .dataSource(dataSource)
-                .passwordEncoder(NoOpPasswordEncoder.getInstance())
-                .usersByUsernameQuery("select username, password, isActive from usr where username=?")
-                .authoritiesByUsernameQuery("select u.username, ur.roles from usr u inner join usr_role ur on u.id = ur.usr_id where u.username=?");
+        auth.userDetailsService(userService)
+                .passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
 
 }
