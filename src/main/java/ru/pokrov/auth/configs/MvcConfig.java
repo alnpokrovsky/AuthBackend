@@ -14,8 +14,13 @@ import java.io.IOException;
 public class MvcConfig implements WebMvcConfigurer {
 
     @Override
+    public void addViewControllers(ViewControllerRegistry reg) {
+        reg.addViewController("/").setViewName("forward:/app/");
+    }
+
+    @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/**/*")
+        registry.addResourceHandler("/app**/*")
                 .addResourceLocations("classpath:/static/")
                 .resourceChain(true)
                 .addResolver(new PathResourceResolver() {
