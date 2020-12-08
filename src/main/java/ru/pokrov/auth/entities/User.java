@@ -1,7 +1,9 @@
 package ru.pokrov.auth.entities;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -11,8 +13,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "usr")
-public class User implements UserDetails {
-
+public class User implements UserDetails, UserInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -41,7 +42,8 @@ public class User implements UserDetails {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        this.password = passwordEncoder.encode(password);
     }
 
     public String getFirstName() {
@@ -79,14 +81,6 @@ public class User implements UserDetails {
     public User() {
         roles = new HashSet<>();
         roles.add(Role.USER);
-    }
-
-    public User(String email, String password, String firstName, String lastName) {
-        super();
-        this.username = email;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
     }
 
     @Override
