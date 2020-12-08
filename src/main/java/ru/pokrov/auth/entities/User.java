@@ -1,11 +1,11 @@
 package ru.pokrov.auth.entities;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,7 +13,10 @@ import java.util.Set;
 
 @Entity
 @Table(name = "usr")
-public class User implements UserDetails, UserInfo {
+public class User implements UserDetails, UserInfo, Serializable {
+
+    static final long serialVersionUID = -8582691001098676108L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
