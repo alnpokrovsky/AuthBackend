@@ -48,9 +48,10 @@ public class UserService implements UserDetailsService {
     }
 
     public User update(User user, final UserInfo info) {
-        user.setUsername(info.getUsername());
         user.setFirstName(info.getFirstName());
         user.setLastName(info.getLastName());
+        user.setBirthday(info.getBirthday());
+        user.setUsername(info.getUsername());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userDao.save(user);
     }

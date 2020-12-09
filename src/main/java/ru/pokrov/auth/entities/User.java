@@ -1,10 +1,12 @@
 package ru.pokrov.auth.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,6 +25,7 @@ public class User implements UserDetails, UserInfo, Serializable {
     private String password;
     private String firstName;
     private String lastName;
+    private LocalDateTime birthday;
     private boolean isActive;
 
 
@@ -47,6 +50,7 @@ public class User implements UserDetails, UserInfo, Serializable {
         this.password = password;
     }
 
+    @Override
     public String getFirstName() {
         return firstName;
     }
@@ -55,12 +59,22 @@ public class User implements UserDetails, UserInfo, Serializable {
         this.firstName = firstName;
     }
 
+    @Override
     public String getLastName() {
         return lastName;
     }
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    @Override
+    public LocalDateTime getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(LocalDateTime birthday) {
+        this.birthday = birthday;
     }
 
     public boolean isActive() {
@@ -89,6 +103,7 @@ public class User implements UserDetails, UserInfo, Serializable {
         return roles;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
