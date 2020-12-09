@@ -1,6 +1,5 @@
 package ru.pokrov.auth.entities;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,6 +11,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 
+/**
+ * User entity that contains:
+ * id, username, password, firstName, lastName and birthday.
+ * Save it in usr table in database.
+ * Implements UserDetails for authorization logic
+ * and UserInfo to provide cut JSON serializer
+ */
 @Entity
 @Table(name = "usr")
 public class User implements UserDetails, UserInfo, Serializable {
