@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http//.csrf().disable()
                 .authorizeRequests()
                 // allow any user to signup and signin
-                .antMatchers("/api/signup", "/api/signin").permitAll()
+                .antMatchers("/api/signup", "/api/login").permitAll()
                 // allow angular to load from /app
                 .antMatchers(HttpMethod.GET, "/app/**").permitAll()
                 // OPTIONS call are made by Angular application to Spring Boot application
