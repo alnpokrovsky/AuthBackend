@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,11 +12,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import ru.pokrov.auth.configs.jwt.JwtRequestFilter;
 import ru.pokrov.auth.services.UserService;
 
 @Configuration
@@ -24,9 +24,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     UserService userService;
-
-    @Autowired
-    AuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
@@ -47,7 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
             .and()
                 // It rejects every unauthenticated request and send error code 401
-                .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                .exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
             .and()
                 // make sure we use stateless session;
                 // session won't be used to store user's state.

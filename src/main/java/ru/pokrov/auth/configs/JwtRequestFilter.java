@@ -1,4 +1,4 @@
-package ru.pokrov.auth.configs.jwt;
+package ru.pokrov.auth.configs;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
