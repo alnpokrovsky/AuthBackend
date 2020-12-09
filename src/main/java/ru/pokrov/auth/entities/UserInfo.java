@@ -1,6 +1,5 @@
 package ru.pokrov.auth.entities;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -19,7 +18,6 @@ public interface UserInfo {
 
     String getLastName();
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "YYYY-MM-dd'T'HH:mm:ss.SSS'Z'")
     LocalDateTime getBirthday();
 
     String getUsername();
