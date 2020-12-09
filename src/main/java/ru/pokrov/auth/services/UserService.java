@@ -52,7 +52,8 @@ public class UserService implements UserDetailsService {
         user.setLastName(info.getLastName());
         user.setBirthday(info.getBirthday());
         user.setUsername(info.getUsername());
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        if (!info.getPassword().isEmpty())
+            user.setPassword(passwordEncoder.encode(info.getPassword()));
         return userDao.save(user);
     }
 
