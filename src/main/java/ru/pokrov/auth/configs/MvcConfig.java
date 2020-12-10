@@ -15,13 +15,14 @@ public class MvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry reg) {
-        reg.addViewController("/").setViewName("forward:/app/");
+        reg.addViewController("/").setViewName("forward:/app/index.html");
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/app**/*")
+        registry.addResourceHandler("/app/**")
                 .addResourceLocations("classpath:/static/")
+                .setCachePeriod(3600)
                 .resourceChain(true)
                 .addResolver(new PathResourceResolver() {
                     @Override
@@ -32,7 +33,8 @@ public class MvcConfig implements WebMvcConfigurer {
                                 ? requestedResource
                                 : new ClassPathResource("/static/index.html");
                     }
-                });
+                })
+        ;
     }
 
 }

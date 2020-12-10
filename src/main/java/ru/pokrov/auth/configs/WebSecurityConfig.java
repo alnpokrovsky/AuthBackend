@@ -32,7 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // allow any user to signup and signin
                 .antMatchers("/api/signup", "/api/login").permitAll()
                 // allow angular to load from /app
-                .antMatchers(HttpMethod.GET, "/app/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/", "/app/**").permitAll()
                 // OPTIONS call are made by Angular application to Spring Boot application
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 // any other request need auth
