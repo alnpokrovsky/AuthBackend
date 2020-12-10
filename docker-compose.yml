@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+  db-mysql:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=db_auth
+      - MYSQL_USER=ruler
+      - MYSQL_PASSWORD=password
+#    ports:
+#      - 3307:3306
+  web:
+    links:
+     - "db-mysql"
+    build: .
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    environment:
+    - DATABASE_HOST=db-mysql
+    - DATABASE_USER=ruler
+    - DATABASE_PASSWORD=password
+    - DATABASE_NAME=db_auth
+    - DATABASE_PORT=3306
+    - LOGGING_LEVEL=OFF
+  
