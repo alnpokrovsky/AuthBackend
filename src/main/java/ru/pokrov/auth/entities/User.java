@@ -4,6 +4,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -27,9 +30,15 @@ public class User implements UserDetails, UserInfo, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    @NotNull
+    @Email
+    @Size(max=30)
     private String username;
+    @NotNull
     private String password;
+    @Size(max=30)
     private String firstName;
+    @Size(max=30)
     private String lastName;
     private LocalDateTime birthday;
     private boolean isActive;
