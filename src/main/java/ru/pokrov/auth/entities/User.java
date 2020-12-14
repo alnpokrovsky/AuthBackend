@@ -35,6 +35,7 @@ public class User implements UserDetails, UserInfo, Serializable {
     @Size(max=30)
     private String username;
     @NotNull
+    @Size(min=1, max=64)
     private String password;
     @Size(max=30)
     private String firstName;
