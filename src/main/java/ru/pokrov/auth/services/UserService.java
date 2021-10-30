@@ -34,14 +34,14 @@ public class UserService implements UserDetailsService {
 
     /**
      * Generate auth token if user is valid
-     * @param username
-     * @param password
+     * @param username username
+     * @param password password
      * @return JWT authentication token
      * @throws AuthenticationException if user is not valid
      */
-    public String login(final String username, final String password) throws AuthenticationException {
+    public String login(String username, String password) throws AuthenticationException {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-        final UserDetails userDetails = loadUserByUsername(username);
+        UserDetails userDetails = loadUserByUsername(username);
         return jwtTokenUtil.generateToken(userDetails);
     }
 
@@ -67,7 +67,7 @@ public class UserService implements UserDetailsService {
      * @param info new user information
      * @return changed user
      */
-    public User update(User user, final UserInfo info) {
+    public User update(User user, UserInfo info) {
         user.setFirstName(info.getFirstName());
         user.setLastName(info.getLastName());
         user.setBirthday(info.getBirthday());

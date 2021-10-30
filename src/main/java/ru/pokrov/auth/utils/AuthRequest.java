@@ -17,7 +17,7 @@ public class AuthRequest implements Serializable {
     //need default constructor for JSON Parsing
     public AuthRequest() { }
 
-    public AuthRequest(final String username, final String password) {
+    public AuthRequest(String username, String password) {
         this.username = username;
         this.password = password;
     }

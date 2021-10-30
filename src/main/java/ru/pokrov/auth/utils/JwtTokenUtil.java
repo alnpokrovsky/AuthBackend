@@ -35,7 +35,7 @@ public class JwtTokenUtil implements Serializable {
     }
 
     public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = getAllClaimsFromToken(token);
+        Claims claims = getAllClaimsFromToken(token);
         return claimsResolver.apply(claims);
     }
     //for retrieveing any information from token we will need the secret key
@@ -45,7 +45,7 @@ public class JwtTokenUtil implements Serializable {
 
     //check if the token has expired
     private Boolean isTokenExpired(String token) {
-        final Date expiration = getExpirationDateFromToken(token);
+        Date expiration = getExpirationDateFromToken(token);
         return expiration.before(new Date());
     }
 
@@ -69,7 +69,7 @@ public class JwtTokenUtil implements Serializable {
 
     //validate token
     public Boolean validateToken(String token, UserDetails userDetails) {
-        final String username = getUsernameFromToken(token);
+        String username = getUsernameFromToken(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 }
