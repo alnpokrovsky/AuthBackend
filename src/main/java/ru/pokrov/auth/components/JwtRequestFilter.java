@@ -1,4 +1,4 @@
-package ru.pokrov.auth.configs;
+package ru.pokrov.auth.components;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +20,8 @@ import java.io.IOException;
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
+    @Autowired private UserService userService;
+    @Autowired private JwtTokenUtil jwtTokenUtil;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)

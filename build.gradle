@@ -1,6 +1,7 @@
 plugins {
     id 'org.springframework.boot' version '2.3.3.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id "io.freefair.lombok" version "6.2.0"
     id 'java'
 }
 
@@ -13,13 +14,13 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.5'
+    implementation 'org.springframework.boot:spring-boot-starter-security:2.5.5'
+    implementation 'org.springframework.boot:spring-boot-starter-validation:2.5.5'
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
-    runtimeOnly 'mysql:mysql-connector-java'
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+    runtimeOnly 'mysql:mysql-connector-java:8.0.25'
+    testImplementation('org.springframework.boot:spring-boot-starter-test:2.5.5') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
 }

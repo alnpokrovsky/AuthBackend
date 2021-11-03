@@ -11,7 +11,7 @@ import org.springframework.web.servlet.resource.PathResourceResolver;
 import java.io.IOException;
 
 @Configuration
-public class MvcConfig implements WebMvcConfigurer {
+public class StaticResourcesConfig implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry reg) {
@@ -26,9 +26,9 @@ public class MvcConfig implements WebMvcConfigurer {
                 .resourceChain(true)
                 .addResolver(new PathResourceResolver() {
                     @Override
-                    protected Resource getResource(String resourcePath,
-                                                   Resource location) throws IOException {
+                    protected Resource getResource(String resourcePath, Resource location) throws IOException {
                         Resource requestedResource = location.createRelative(resourcePath);
+                        // this is needed for angular to redirect right way
                         return requestedResource.exists() && requestedResource.isReadable()
                                 ? requestedResource
                                 : new ClassPathResource("/static/index.html");
