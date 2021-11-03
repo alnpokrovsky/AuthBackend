@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import ru.pokrov.auth.daos.UserDao;
 import ru.pokrov.auth.dtos.UserInfo;
 import ru.pokrov.auth.entities.User;
-import ru.pokrov.auth.utils.JwtTokenUtil;
+import ru.pokrov.auth.components.JwtTokenUtil;
 
 import javax.persistence.EntityExistsException;
 

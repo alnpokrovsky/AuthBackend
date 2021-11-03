@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import ru.pokrov.auth.dtos.UserInfo;
 import ru.pokrov.auth.entities.User;
 import ru.pokrov.auth.services.UserService;
-import ru.pokrov.auth.utils.AuthRequest;
-import ru.pokrov.auth.utils.JwtResponse;
+import ru.pokrov.auth.dtos.AuthRequest;
+import ru.pokrov.auth.dtos.JwtResponse;
 
 import javax.validation.Valid;
 import java.util.HashMap;
