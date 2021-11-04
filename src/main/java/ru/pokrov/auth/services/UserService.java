@@ -1,9 +1,6 @@
 package ru.pokrov.auth.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,7 +9,6 @@ import org.springframework.stereotype.Service;
 import ru.pokrov.auth.daos.UserDao;
 import ru.pokrov.auth.dtos.UserInfo;
 import ru.pokrov.auth.entities.User;
-import ru.pokrov.auth.components.JwtTokenUtil;
 
 import javax.persistence.EntityExistsException;
 
@@ -24,21 +20,6 @@ public class UserService implements UserDetailsService {
 
     @Autowired private UserDao userDao;
     @Autowired private PasswordEncoder passwordEncoder;
-    @Autowired private JwtTokenUtil jwtTokenUtil;
-    @Autowired private AuthenticationManager authenticationManager;
-
-    /**
-     * Generate auth token if user is valid
-     * @param username username
-     * @param password password
-     * @return JWT authentication token
-     * @throws AuthenticationException if user is not valid
-     */
-    public String login(String username, String password) throws AuthenticationException {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-        UserDetails userDetails = loadUserByUsername(username);
-        return jwtTokenUtil.generateToken(userDetails);
-    }
 
     /**
      * Register new user and add them to database
